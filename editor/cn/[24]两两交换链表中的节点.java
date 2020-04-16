@@ -22,7 +22,22 @@
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
-
+        ListNode sentinel = new ListNode(0);
+        sentinel.next = head;
+        ListNode cur = sentinel;
+        while (cur.next != null && cur.next.next != null) {
+//            ListNode nodeOne = head;
+            ListNode nodeOne = cur.next;
+            ListNode nodeTwo = cur.next.next;
+            cur.next = nodeTwo;
+            nodeOne.next = nodeTwo.next;
+            nodeTwo.next = nodeOne;
+            cur = nodeOne;
+        }
+        return sentinel.next;
     }
+
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
