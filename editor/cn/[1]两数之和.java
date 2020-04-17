@@ -15,21 +15,23 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        int first = 0, last = nums.length - 1, sum;
-        int[] loc = new int[2];
-        while (first < last) {
-            sum = nums[first] + nums[last];
-            if (sum == target) {
-                loc[0] = first;
-                loc[1] = last;
-                return loc;
+        int sum = 0;
+        int[] location = new int[2];
+        for(int i = 0; i<nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                sum = nums[i] + nums[j];
+                if (target == sum) {
+                    location[0] = i;
+                    location[1] = j;
+                    break;
+                    // return location;
+                }
+                // else {
+                //     return null;
+                // }
             }
-            while (first < last && first > 0 && nums[first] == nums[first - 1]) first += 1;
-            while (first < last && last < nums.length - 1 && nums[last] == nums[last + 1]) last -= 1;
-            first += 1;
-            last -= 1;
         }
-        return loc;
+        return location;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -54,7 +54,34 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        
+        if (head == null) return null;
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode meet = null;
+        ListNode chase = null;
+//        while (fast != null) {
+//            if (fast.next == null) return null;
+//            slow = slow.next;
+//            fast = fast.next.next;
+//            if (fast == slow) {
+//                break;
+//            }
+//        }
+        while (true) {
+            if (fast == null || fast.next == null) return null;
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) break;
+        }
+        meet = fast;
+        chase = head;
+        while (meet != chase) {
+            meet = meet.next;
+            chase = chase.next;
+        }
+        return chase;
+
+//        return null;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
