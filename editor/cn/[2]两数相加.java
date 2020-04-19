@@ -24,7 +24,38 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int x;
+        int decimal = 0, residual = 0;
+        ListNode sentinel = new ListNode(0);
+        ListNode cur = sentinel;
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        while (l1 != null || l2 != null) {
+            int valueOne = l1 == null ? 0 : l1.val;
+            int valueTwo = l2 == null ? 0 : l2.val;
+            int sum = valueOne + valueTwo + decimal;
+            decimal =(int) sum / 10;
+            residual = sum % 10;
+            cur.next = new ListNode(residual);
+            cur = cur.next;
+
+            if (l1 != null) l1 = l1.next;
+            if (l2 != null) l2 = l2.next;
+        }
+        // 还需要考虑进位的情况
+        if (decimal == 1) {
+            cur.next = new ListNode(1);
+        }
+        return sentinel.next;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
+
+
+
+
+
+
+
+
+
+

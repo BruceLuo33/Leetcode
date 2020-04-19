@@ -30,16 +30,17 @@ import java.util.HashMap;
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         HashMap<Character, Integer> dic = new HashMap<>();
-        int first, last, result, subStringLength;
+        int first, last, result = 0, subStringLength;
         for (first = 0, last = 0; last < s.length(); last++) {
             char presentChar = s.charAt(last);
-            if (dic.containsKey(presentCharChar)) {
+            if (dic.containsKey(presentChar)) {
                 first = Math.max(first, dic.get(presentChar));
             }
             subStringLength = last - first + 1;
             result = Math.max(result, subStringLength);
             dic.put(presentChar, last + 1);
         }
+        sdfsad
         return result;
     }
 }
