@@ -40,7 +40,6 @@ class Solution {
             result = Math.max(result, subStringLength);
             dic.put(presentChar, last + 1);
         }
-        sdfsad
         return result;
     }
 }
