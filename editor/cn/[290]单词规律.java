@@ -30,7 +30,28 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public boolean wordPattern(String pattern, String str) {
-        
+        // 思路：将 pattern 和 str 分别放入哈希表，然后对比value值是否相同
+        // 难点：str 如何读取每一个单词？split
+        //
+        // 复杂度：O(n)，空间复杂度：O(n)
+
+        HashMap<Character, String> dic = new HashMap<>();
+        String[] strArray = str.split(" ");
+        if (pattern.length() != strArray.length) {
+            return false;
+        }
+
+        for (int i = 0; i < pattern.length(); i++) {
+            char key = pattern.charAt(i);
+            if (dic.containsKey(key)) {
+                if (!dic.get(key).equals(strArray[i])) {
+                    return false;
+                }
+            } else {
+                dic.put(key, strArray[i]);
+            }
+        }
+        return true;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
