@@ -28,8 +28,9 @@ class Solution {
         // while 判断中 head.next != null 报空指针的错误。
         head = sentinel;
 
-        // 先找到第一个大于等于 x 的node，然后将 tail节点指向它
+        // 思路： 先找到第一个大于等于 x 的node，然后将 tail节点指向它
         // 然后不停的往后循环，遇到val 小于 x 的node，就将其删除，然后插入到tail后面
+        // 复杂度： O（N），空间复杂度：O（1）
         while (head != null && head.next != null) {
             if (head.next.val >= x) {
                 tail = head;
