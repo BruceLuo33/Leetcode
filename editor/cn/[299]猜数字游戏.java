@@ -34,6 +34,7 @@ class Solution {
         // 将numbers 数组想象为x轴，secret/guess 出现了某个数字，就分别将其 y 值 +1/-1
         // 判断 guess/secret 的值是否 >0/ <0，要注意这个顺序和上面的相反。
         // 如果是，说明之前出现过了，则将cows++。同时因为个数也要对应，所以需要将数字的 y值-1，拉回到x轴的水平线上面。
+        // 各数对应是指： secret 中两个数字 1，即便 guess 有三个数字 1，也只能将 cows += 2
         int bulls = 0;
         int cows = 0;
         int[] numbers = new int[10];
