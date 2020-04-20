@@ -24,6 +24,7 @@ class Solution {
         ListNode sentinel = new ListNode(0);
         sentinel.next = head;
         ListNode tail = sentinel;
+        // 这一个地方不是很明白，为什么要将head指向sentinel
         head = sentinel;
 
         // 先找到第一个大于等于 x 的node，然后将 tail节点指向它
