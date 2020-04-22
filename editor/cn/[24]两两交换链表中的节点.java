@@ -22,6 +22,26 @@
  */
 class Solution {
     public ListNode swapPairs(ListNode head) {
+
+        // 4.16 第一遍，4.22 第二遍
+        // 思路：链表的转换更新。画出指针与node的图就行了
+
+        // 4.22 codes
+        if (head == null || head.next == null) return head;
+        ListNode sentinel = new ListNode(0);
+        sentinel.next = head;
+        ListNode move = sentinel;
+        while (head != null && head.next!= null) {
+            ListNode tmp = head.next.next;
+            move.next = head.next;
+            head.next.next = head;
+            head.next = tmp;
+            move = head;
+            head = tmp;
+        }
+        return sentinel.next;
+
+        // 4.16 codes
         ListNode sentinel = new ListNode(0);
         sentinel.next = head;
         ListNode cur = sentinel;
