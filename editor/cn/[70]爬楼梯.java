@@ -27,6 +27,26 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int climbStairs(int n) {
+        // 4.10 第一遍，4.22 第二遍
+        // 思路：动态规划。将到达第 n 级台阶拆解为到达第 n-1 和 n-2，
+        // 然后再往前走 1/2 步。就能完成任务。
+        // 步骤：先写停止递归条件（数学归纳法里面的首步条件，然后写递归公式
+        // 注意如果用斐波那契数列的写法，会造成时间过长，在这里我们要保存每一步的内容，
+        // 需要用的动态规划
+
+        // 4.22 codes
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+        int first = 1, second = 2, third = 0;
+        for (int i = 0; i < n - 2; i++){
+            third = first + second;
+            first = second;
+            second = third;
+        }
+        return second;
+
+        // 4.10 codes
         if (n == 0) return 0;
         if (n == 1) return 1;
         if (n == 2) return 2;
