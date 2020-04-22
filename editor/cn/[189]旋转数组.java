@@ -30,20 +30,28 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public void rotate(int[] nums, int k) {
-        k = k % nums.length;
-        reverse(nums, 0, nums.lengt - 1);
-        reverse(nums,0, k - 1);
-        reverse(nums, k, nums.length - 1);
 
+        // 4.13 第一遍，4.15 第二遍，4.22 第三遍
+        // 思路：先旋转整个数组，然后旋转 0 to k-1 的数组，再旋转 k-1 to n-1 的数组
+        // 注意：k 的取值如果大于 num.length，不能简单的按照翻转整个数组来做，
+        // 而是需要令 k = k % nums.length.
+        // 复杂度分析：O（N）
+        // 两次代码相似，不再额外贴出
+        k = k % nums.length;
+        reverse(nums, 0, nums.length - 1);
+        reverse(nums, 0, k-1);
+        reverse(nums, k, nums.length - 1);
+            return;
     }
 
-    public void reverse(int[] nums, int first, int last) {
-        while (first < last) {
-            int tmp = nums[first];
-            nums[first] = nums[last];
-            nums[last] = tmp;
-            first += 1;
-            last -= 1;
+    public void reverse(int[] nums, int start, int end) {
+        if (start > end) return;
+        while (start < end) {
+            int tmp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = tmp;
+            start += 1;
+            end -= 1;
         }
     }
 }
