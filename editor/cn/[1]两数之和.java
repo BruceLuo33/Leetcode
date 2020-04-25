@@ -15,6 +15,31 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] twoSum(int[] nums, int target) {
+        // 4.25 第二遍
+        // 思路一：很早之前做过这道题。直接用的两遍循环。暴力破解，复杂度O（N^2)
+        // 思路二：降低复杂度，使用 HashMap。
+        // 步骤：1、将nums 放入 HashMap；2、对于每一个元素 i，找出 target - i 是否在 map中；
+        // 3、如果在，返回下标；如果不在，返回空数组。
+        // 注意：判断map 是否有key 的时候，因为题目要求同一个元素不能使用两次，
+        // 所以还需要判定 map.get(target - nums[i]) != i。
+
+        int[] location = new int[2];
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], i);
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            int res = target - nums[i];
+            if (map.containsKey(res) && map.get(res) != i) {
+                location[0] = i ;
+                location[1] = map.get(res) ;
+                return location;
+            }
+        }
+        return location;
+
+
         int sum = 0;
         int[] location = new int[2];
         for(int i = 0; i<nums.length; i++) {
