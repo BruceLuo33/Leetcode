@@ -1,6 +1,6 @@
-//我们把只包含因子 2、3 和 5 的数称作丑数（Ugly Number）。求按从小到大的顺序的第 n 个丑数。 
+//编写一个程序，找出第 n 个丑数。 
 //
-// 
+// 丑数就是只包含质因数 2, 3, 5 的正整数。 
 //
 // 示例: 
 //
@@ -14,9 +14,7 @@
 // 1 是丑数。 
 // n 不超过1690。 
 // 
-//
-// 注意：本题与主站 264 题相同：https://leetcode-cn.com/problems/ugly-number-ii/ 
-// Related Topics 数学
+// Related Topics 堆 数学 动态规划
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
