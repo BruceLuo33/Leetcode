@@ -33,7 +33,7 @@
  */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        // 4.27 第一遍，4.28 第二遍
+        // 4.28 第一遍，4.29 第二遍
         // 思路：这道题和102题几乎一样，唯一的不同之处在于如果 level 为奇，就是从左往右，
         // 如果是偶数，就是从右往左。因此对 curLevel 增加一个奇偶判断就可以了
         // 复杂度分析：O（N），空间复杂度：O（N）
