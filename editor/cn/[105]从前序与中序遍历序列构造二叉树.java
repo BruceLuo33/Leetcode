@@ -35,31 +35,43 @@ class Solution {
     // 找到中序遍历中的根节点，则其左边就是左子树，右边就是右子树。
     // 然后再次回到前序遍历数组剩下的部分，第一个元素为右子树的根节点，以此类推。
     // 由上述分析可以看出，递归非常适合这道题目。
+    // 注意：找 root 节点的时候，下标应该为 p_start 而不是 0
+    // 注意：helper 函数 return null 的条件应该是 preorder 数组的 start == end
+    // 注意：helper 函数的输入参数中，p_end 和 i_end 都不用 -1
+    // 复杂度分析：O（N），空间复杂度：O（N)
+    // 思路二：在上一个思路中，我们发现每一次从 inorder 数组中去找 root 节点，都需要用 for 循环去遍历，这样就无疑增加了复杂度，
+    // 基于此，考虑加入一个 Map 来降低复杂度，将 inorder 的每一个数字和位置都输入 map，可以将复杂度降低很多
+    //
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        int p_start = 0, p_end = preorder.length - 1;
-        int i_start = 0, i_end = inorder.length - 1;
-        return buildTreeHelper(preorder, p_start, p_end, inorder, i_start, i_end);
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        int p_start = 0, p_end = preorder.length;
+        int i_start = 0, i_end = inorder.length;
+        return buildTreeHelper(preorder, p_start, p_end, inorder, i_start, i_end, map);
     }
 
-    private TreeNode buildTreeHelper(int[] preorder, int p_start, int p_end, int[] inorder, int i_start, int i_end) {
+    private TreeNode buildTreeHelper(int[] preorder, int p_start, int p_end, int[] inorder, int i_start, int i_end, HashMap<Integer, Integer> map) {
         if (p_start == p_end) return null;
 
         int rootVal = preorder[p_start];
-        int rootIndex = 0;
+        int rootIndex = map.get(rootVal);
+
         // Find the root index in the InOrder array.
-        for (int i = 0; i < inorder.length; i++) {
-            if (inorder[i] == rootVal) {
-                rootIndex = i;
-                break;
-            }
-        }
+        // for (int i = 0; i < inorder.length; i++) {
+        //     if (inorder[i] == rootVal) {
+        //         rootIndex = i;
+        //         break;
+        //     }
+        // }
 
         TreeNode root = new TreeNode(rootVal);
         int leftTreeLength = rootIndex - i_start;
 
-        root.left = buildTreeHelper(preorder, p_start + 1, p_start + 1 + leftTreeLength, inorder, i_start, rootIndex);
-        root.right = buildTreeHelper(preorder, p_start + leftTreeLength + 1, p_end, inorder, rootIndex + 1, i_end);
+        root.left = buildTreeHelper(preorder, p_start + 1, p_start + 1 + leftTreeLength, inorder, i_start, rootIndex, map);
+        root.right = buildTreeHelper(preorder, p_start + leftTreeLength + 1, p_end, inorder, rootIndex + 1, i_end, map);
 
         return root;
     }
