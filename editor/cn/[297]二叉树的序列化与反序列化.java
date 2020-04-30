@@ -24,6 +24,9 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+
+import javax.swing.tree.TreeNode;
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -43,8 +46,12 @@ public class Codec {
     // 同时 null 也要判断与记录
     // 注意：在 serialize 函数中，因为返回的值是 String 而非 List<List<String>>，所以不再需要用 level 来控制 return 的维度
     // 注意：在 serialize 函数中，因为 node.val 是 Integer，所以用一个整型 List 去接收答案会比较好
-    //
-    //
+    // 注意：在 deserialize 函数中，有一个小 bug 找了很久才找出来，那就是要记得在 String 数组转换为 Integer 数组的时候，
+    // 使用 trim() 将空格切掉。
+    // 总结：这道题的难点，不在于 serialize，而是如何重建二叉树。因为之前在 105 题中的经验不管用，所以需要用其他的方法来做。
+    // 在这里我们使用了队列来保存即将访问的 root.left 和 root.right，并且根据二叉树的特征，即只有左子树和右子树，
+    // 使用了两个 if 来往最终的二叉树中添加 node。并在每一个 node 之后将位置指针 curPos + 1
+    // 复杂度分析：O（N）
 
 
 
@@ -52,7 +59,7 @@ public class Codec {
     public String serialize(TreeNode root) {
         // BFS, similar to Leetcode 102.
         List<Integer> ans = new ArrayList<>();
-        if (root == null) return ans.toString();
+        if (root == null) return "";
         Queue<TreeNode> node = new LinkedList<>();
         node.offer(root);
         while (!node.isEmpty()) {
@@ -74,27 +81,27 @@ public class Codec {
         String[] strTree = data.substring(1, data.length() - 1).split(",");
         Integer[] bfsOrderTree = new Integer[strTree.length];
         for (int i = 0; i < strTree.length; i++) {
-            if (strTree[i] != "null") {
-                bfsOrderTree[i] = Integer.parseInt(strTree[i]);
-            } else {
+            if (strTree[i].trim().equals("null")) {
                 bfsOrderTree[i] = null;
+            } else {
+                bfsOrderTree[i] = Integer.parseInt(strTree[i].trim());
             }
         }
 
         TreeNode root = new TreeNode(bfsOrderTree[0]);
-        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         int curPos = 1;
         queue.offer(root);
         while (!queue.isEmpty()) {
             TreeNode curNode = queue.poll();
             if (bfsOrderTree[curPos] != null) {
                 curNode.left = new TreeNode(bfsOrderTree[curPos]);
-                queue.offer(curNode.left);
+                queue.add(curNode.left);
             }
             curPos += 1;
             if (bfsOrderTree[curPos] != null) {
                 curNode.right = new TreeNode(bfsOrderTree[curPos]);
-                queue.offer(curNode.right);
+                queue.add(curNode.right);
             }
             curPos += 1;
         }
