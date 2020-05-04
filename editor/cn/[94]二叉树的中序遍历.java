@@ -27,7 +27,7 @@
  */
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
-        // 4.24 第一遍
+        // 4.24 第一遍，5.4 第二遍
         // 思路：中序遍历，二叉树经典算法。
         // 第一步：递归左树
         // 第二步：append root value
@@ -43,7 +43,6 @@ class Solution {
         inOrderHelper(root.left, ans);
         ans.add(root.val);
         inOrderHelper(root.right, ans);
-    }
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
