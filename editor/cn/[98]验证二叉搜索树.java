@@ -43,7 +43,7 @@
  * }
  */
 class Solution {
-    // 4.27 第一遍
+    // 4.27 第一遍，5.4 第二遍
     // 思路一：中序遍历。题目的要求是判断二叉树值得大小是否为从小到大排列。因此用中序遍历得 左-->根-->右，
     // 就可以比较好的解决这个问题。只要相邻两个元素不满足前项小于后项的关系，就返回false。
     // 注意：在存储树的 val 时，数据结构可以用 stack 或者是 arraylist。
@@ -61,7 +61,28 @@ class Solution {
     // 从上图，我们可以总结出结论：如果是左子节点，那么应该以父节点为右边界，以父节点的左边界为左边界；
     // 如果是右子节点，应该以父节点为左边界，以父节点的右边界为右边界。
     // 注意：设置max/min 的时候，要将其再扩大一个位置，MAX_VALUE + 1 和 MIN+VALUE - 1
+    // 注意：判定是否越界的时候，要用`node.val >= max` 而不能用 `node.left.val >= node.val`，
+    // 因为我们的 terminator 条件只判定了 `node ！= null`，但没有检查 node.left，所以会出现空指针错误。
+    // 正确的做法应该是 `if (node.val >= max)`
     // 复杂度分析：O（N），空间复杂度：O（1）
+
+    public boolean isValidBST(TreeNode root) {
+        long max = (long) Integer.MAX_VALUE + 1;
+        long min = (long) Integer.MIN_VALUE - 1;
+        return isOrder(root, max, min);
+    }
+
+    private boolean isOrder(TreeNode root, long max, long min) {
+        if (root == null) return true;
+
+        if (root.val >= max) return false;
+
+        if (root.val <= min) return false;
+
+        return isOrder(root.left, root.val, min) && isOrder(root.right, max, root.val);
+    }
+
+
 
     // Solution Two Codes:
     public boolean isValidBST(TreeNode root) {
