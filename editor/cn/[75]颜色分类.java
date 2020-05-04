@@ -23,7 +23,7 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public void sortColors(int[] nums) {
-        // 4.26 第一遍
+        // 4.26 第一遍，5.4 第二遍
         // 思路：双指针。第一个指针之前全都是0；第二个指针之后全都是2；二者中间全都是1.
         // 注意：在移动 twoLoc 的时候，交换了 twoLoc 与 i 的位置，此时for循环将会
         // 令 i++，但是这是不正确的。因为我们并不知道nums[twoLoc]到底值是多少，
@@ -32,8 +32,33 @@ class Solution {
         // 设置为 i < twoLoc 即可。否则 twoLoc 将会进一步翻转，将 1 翻到后面。
         // 复杂度分析：O（N），空间复杂度：O（1）
 
+        int zero = 0, two = nums.length - 1;
+        int len = nums.length;
+        for (int i = 0; i < len; i++) {
+            if (nums[i] == 0) {
+                int tmp = nums[i];
+                nums[i] = nums[zero];
+                nums[zero] = tmp;
+                zero += 1;
+                continue;
+            }
+            if (nums[i] == 1) continue;
+            if (nums[i] == 2) {
+                int tmp = nums[i];
+                nums[i] = nums[two];
+                nums[two] = tmp;
+                two -= 1;
+                i -= 1;
+                len -= 1;
+                continue;
+            }
+        }
+
+
+
+
         int zeroLoc = 0, twoLoc = nums.length - 1;
-//        int receive = 0;
+        // int receive = 0;
         for (int i = 0; i<= twoLoc; i++) {
             if (nums[i] == 0) {
                 int tmp = nums[zeroLoc];
@@ -47,9 +72,7 @@ class Solution {
                 twoLoc -= 1;
                 i -= 1;
             }
-//            receive = i;
+            // receive = i;
         }
-//        System.out.print(receive);
-    }
 }
 //leetcode submit region end(Prohibit modification and deletion)
