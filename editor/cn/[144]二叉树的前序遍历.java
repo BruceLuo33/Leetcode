@@ -27,25 +27,39 @@
  * }
  */
 class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        // 4.24 第一遍
-        // 思路：前序遍历，经典算法。
-        // 第一步：append root value
-        // 第二步：递归左树
-        // 第三步：递归右树
-        // 复杂度分析：O（N），空间复杂度：O（logN）~ O（N），取决于 root 的形态
+    // 4.24 第一遍，5.4 第二遍
+    // 思路：前序遍历，经典算法。
+    // 第一步：append root value
+    // 第二步：递归左树
+    // 第三步：递归右树
+    // 复杂度分析：O（N），空间复杂度：O（logN）~ O（N），取决于 root 的形态
 
+    public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
-        preOrderHelper(root, ans);
+        helper(root, ans);
         return ans;
     }
 
-    public void preOrderHelper(TreeNode root, List<Integer> ans) {
+    private void helper(TreeNode root, List<Integer> ans) {
         if (root == null) return;
+
         ans.add(root.val);
-        preOrderHelper(root.left, ans);
-        preOrderHelper(root.right, ans);
+        helper(root.left, ans);
+        helper(root.right, ans);
     }
-    }
+
+
+    // public List<Integer> preorderTraversal(TreeNode root) {
+    //   List<Integer> ans = new ArrayList<>();
+    //     preOrderHelper(root, ans);
+    //     return ans;
+    // }
+
+    // public void preOrderHelper(TreeNode root, List<Integer> ans) {
+    //     if (root == null) return;
+    //     ans.add(root.val);
+    //     preOrderHelper(root.left, ans);
+    //     preOrderHelper(root.right, ans);
+    // }
 }
 //leetcode submit region end(Prohibit modification and deletion)
