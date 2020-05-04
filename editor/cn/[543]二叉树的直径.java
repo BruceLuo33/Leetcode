@@ -31,7 +31,7 @@
  * }
  */
 class Solution {
-    // 4.25 第一遍
+    // 4.25 第一遍，5.4第二遍
     // 思路：递归。一开始想的是树的直径就是root 往两边走的叶子节点最大深度之和。
     // 然而问题在于，叶子节点是对的，但是不一定经过 root。在这里采用递归，可以比较好的避免这个问题：
     // 遍历每一个节点，将这一个节点当作root，求出它的深度，则左子树加右子树的深度，就是当前节点作为 root 的直径；
@@ -42,17 +42,34 @@ class Solution {
 
     int maxDepth = 0;
     public int diameterOfBinaryTree(TreeNode root) {
-        depth(root);
+        if (root == null) return 0;
+        helper(root);
         return maxDepth;
     }
 
-    private int depth(TreeNode root) {
+    private int helper(TreeNode root) {
         if (root == null) return 0;
-
-        int leftDepth = depth(root.left);
-        int rightDepth = depth(root.right);
-        maxDepth = Math.max(leftDepth + rightDepth, maxDepth);
+        int leftDepth = helper(root.left);
+        int rightDepth = helper(root.right);
+        maxDepth = Math.max(maxDepth, leftDepth + rightDepth);
         return Math.max(leftDepth, rightDepth) + 1;
     }
+
+
+
+
+    // int maxDepth = 0;
+    // public int diameterOfBinaryTree(TreeNode root) {
+    //     depth(root);
+    //     return maxDepth;
+    // }
+
+    // private int depth(TreeNode root) {
+    //     if (root == null) return 0;
+    //     int leftDepth = depth(root.left);
+    //     int rightDepth = depth(root.right);
+    //     maxDepth = Math.max(leftDepth + rightDepth, maxDepth);
+    //     return Math.max(leftDepth, rightDepth) + 1;
+    // }
 }
 //leetcode submit region end(Prohibit modification and deletion)
