@@ -59,7 +59,7 @@
  * }
  */
 class Solution {
-    // 4.27 第一遍
+    // 4.27 第一遍, 5.4 第二遍
     // 思路：采用中序遍历。从 98 题中我们知道，对一个二叉树进行中序遍历，得到的数组将会从小到大排列。
     // 因为题中已经说明，仅有两个节点被错误的交换，因此我们可以使用双指针来遍历。对于两个节点被交换，会产生以下几种情况：
     // case 1：[1,2,3,4,5] 中，1和2被交换，因此会产生一个错误数值对。交换后是[2,1,3,4,5]，{2，1}是错误数值对
@@ -68,35 +68,66 @@ class Solution {
     // 然后继续递归，找到第二组逆序的数字，则将second 赋值为第二组逆序中的后一个数字（case two 的2），然后交换first 和 second 即可。
     // 注意：判断前后结点的值的时候，应该是 pre.val > root.val，即前节点的值大于现节点的值。
     // 注意：赋值的时候，first 应该指向 pre，second 应该指向 root。对应着上面的case 2，将第一个逆序对的第一个元素和第二个逆序对的第二个元素，交换。
+    // 注意：在寻找第一个逆序对的时候，`second = root` 的这个将 second 指向 root 的步骤不能省略。如果省略，就默认了只有 case 2
+    // 会出现，忽略了 case 1 的情况。
+    // 注意：中序遍历的时候，`pre = root` 和用 if 语句寻找逆序对的顺序不能交换
     // 复杂度分析：O（N）
 
     private TreeNode first = null;
     private TreeNode second = null;
-    private TreeNode pre = null;
+    TreeNode pre = null;
     public void recoverTree(TreeNode root) {
-        inOrder(root);
+        helper(root);
         int tmp = first.val;
         first.val = second.val;
         second.val = tmp;
     }
 
-    private void inOrder(TreeNode root) {
+    private void helper(TreeNode root) {
         if (root == null) return;
-
-        inOrder(root.left);
-
+        helper(root.left);
         if (pre != null && pre.val > root.val) {
-            // first == null 表示第一次遇到逆序对
             if (first == null) {
                 first = pre;
                 second = root;
             } else {
-                // 第二次遇到逆序对
                 second = root;
             }
         }
         pre = root;
-        inOrder(root.right);
+        helper(root.right);
     }
+
+
+
+
+    // private TreeNode first = null;
+    // private TreeNode second = null;
+    // private TreeNode pre = null;
+    // public void recoverTree(TreeNode root) {
+    //     inOrder(root);
+    //     int tmp = first.val;
+    //     first.val = second.val;
+    //     second.val = tmp;
+    // }
+
+    // private void inOrder(TreeNode root) {
+    //     if (root == null) return;
+
+    //     inOrder(root.left);
+
+    //     if (pre != null && pre.val > root.val) {
+    //         // first == null 表示第一次遇到逆序对
+    //         if (first == null) {
+    //             first = pre;
+    //             second = root;
+    //         } else {
+    //             // 第二次遇到逆序对
+    //             second = root;
+    //         }
+    //     }
+    //     pre = root;
+    //     inOrder(root.right);
+    // }
 }
 //leetcode submit region end(Prohibit modification and deletion)
