@@ -28,7 +28,7 @@
  * }
  */
 class Solution {
-    // 4.30 第一遍
+    // 4.30 第一遍，5.5 第二遍
     // 思路一：一开始的时候想到了能否用 weighted-Union Find 算法，但是对于一道算法题，应该不需要这么复杂。
     // 思路二：联想到之前做过的题目：从 98 和 99 题我们可以知道，一个二叉树的中序遍历刚好就是一个升序的数组；
     // 从 105 和 106 我们知道，如果有了中序遍历与前序 or 后序遍历的数组，我们就能重建一个二叉树。
@@ -39,17 +39,33 @@ class Solution {
     // 复杂度分析：O（N）
 
     public TreeNode sortedArrayToBST(int[] nums) {
-        return helper(0, nums.length, nums);
+        return helper(nums, 0, nums.length);
     }
 
-    private TreeNode helper(int start, int end, int[] nums) {
+    private TreeNode helper(int[] nums, int start, int end) {
         if (start == end) return null;
 
-        int mid = (int) (start + end)/2;
+        int mid = (int) (start + end) / 2;
         TreeNode root = new TreeNode(nums[mid]);
-        root.left = helper(start, mid, nums);
-        root.right = helper(mid + 1, end, nums);
+        root.left = helper(nums, start, mid);
+        root.right = helper(nums, mid + 1, end);
         return root;
     }
+
+
+
+    // public TreeNode sortedArrayToBST(int[] nums) {
+    //     return helper(0, nums.length, nums);
+    // }
+
+    // private TreeNode helper(int start, int end, int[] nums) {
+    //     if (start == end) return null;
+
+    //     int mid = (int) (start + end)/2;
+    //     TreeNode root = new TreeNode(nums[mid]);
+    //     root.left = helper(start, mid, nums);
+    //     root.right = helper(mid + 1, end, nums);
+    //     return root;
+    // }
 }
 //leetcode submit region end(Prohibit modification and deletion)
