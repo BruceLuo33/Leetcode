@@ -30,7 +30,7 @@
  * }
  */
 class Solution {
-    // 4.29 第一遍
+    // 4.29 第一遍，5.5第二遍
     // 思路：这道题和 105 题基本思路一样。不同之处在于将前序遍历换成了后序遍历。所以在找 root 的时候换一下位置，其他不变就可以了
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         HashMap<Integer, Integer> map = new HashMap<>();
