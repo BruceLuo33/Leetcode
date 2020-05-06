@@ -46,25 +46,44 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int removeDuplicates(int[] nums) {
-        // 4.13 第一遍，4.22 第二遍
+        // 4.13 第一遍，4.22 第二遍，5.6 第三遍
         // 思路：和移动数组中的零项思路差不多。双指针来做。
         // 注意：first 指针应该指向最后一项不相等的元素。例如 1，1，2，3；则first应该指向第一个 1.
+        // 注意：最后返回项应该为 first + 1 而不是 first
         // 复杂度：O（N），空间复杂度O（1）
 
-        if (nums == null) return 0;
-        if (nums.length == 1) return 1;
         int first = 0, second = 1;
-        while (first < nums.length && second < nums.length) {
-            // second += 1;
+        int len = nums.length;
+        if (nums == null) return 0;
+        if (len == 1) return 1;
+        while (first < len && second < len) {
             if (nums[first] == nums[second]) {
-                // first += 1;
                 second += 1;
             } else {
                 nums[first + 1] = nums[second];
                 first += 1;
+                second += 1;
             }
         }
         return first + 1;
+
+
+
+
+        // if (nums == null) return 0;
+        // if (nums.length == 1) return 1;
+        // int first = 0, second = 1;
+        // while (first < nums.length && second < nums.length) {
+        //     // second += 1;
+        //     if (nums[first] == nums[second]) {
+        //         // first += 1;
+        //         second += 1;
+        //     } else {
+        //         nums[first + 1] = nums[second];
+        //         first += 1;
+        //     }
+        // }
+        // return first + 1;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
