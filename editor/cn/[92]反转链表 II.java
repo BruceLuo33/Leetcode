@@ -21,6 +21,62 @@
  */
 class Solution {
     public ListNode reverseBetween(ListNode head, int m, int n) {
+
+
+        // 4.20 第一遍，5.7 第二遍
+        // 思路：分析题目，因为整体分为三个部分：0 - (m - 1) 部分 和 n - end 部分不动，m - n 部分翻转。根据这个结构，我们解题分为三步走。
+        // 第一步，遍历到 m - 1 的位置。因为题目给定了 m, n 都是小于链表长度，所以不用考虑超出的情况；
+        // 第二步，将 m - n 的整个子链表进行翻转，与206题一致；
+        // 第三步，将三个链表连接起来
+        // 注意：
+        // 复杂度分析：O（N）
+
+        if (m == n) return head;
+        ListNode sentinel = new ListNode(0);
+        sentinel.next = head;
+        ListNode move = sentinel;
+        for (int i = 0; i < m - 1; i++) {
+            move = move.next;
+        }
+        ListNode left = move;
+        ListNode prev = null;
+        ListNode cur = left.next;
+        for (int i = 0; i < n - m + 1; i++) {
+            ListNode tmp = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = tmp;
+        }
+
+        left.next.next = cur;
+        left.next = prev;
+        return sentinel.next;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (m == n) return head;
         ListNode sentinel = new ListNode(0);
         sentinel.next = head;
