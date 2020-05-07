@@ -28,6 +28,7 @@
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
+        // 4.20 第一遍，5.7 第二遍
         // 思路：先翻转整个链表，然后从头节点（原来的尾节点）开始计数，删除 nth 节点
         // 然后再翻转一次
         // 复杂度分析：O(2L-1) = O(2N-1)=O(N), 空间复杂度 O（1）

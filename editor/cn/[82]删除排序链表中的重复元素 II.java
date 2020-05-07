@@ -24,6 +24,21 @@
  */
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
         // 思路：双指针。第一个指针指向没有重复的上一个节点，第二个指针用来移动判断
         // 如果第二个指针的值和第三个（second.next）相等，则加一个while循环，一直到不相等的node，
 
