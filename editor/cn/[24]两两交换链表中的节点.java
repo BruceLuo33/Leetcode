@@ -23,8 +23,48 @@
 class Solution {
     public ListNode swapPairs(ListNode head) {
 
-        // 4.16 第一遍，4.22 第二遍
-        // 思路：链表的转换更新。画出指针与node的图就行了
+        // 4.16 第一遍，4.22 第二遍，5.6 第三遍
+        // 思路：
+        // 1. 如果是空节点 or 单节点，直接返回 head
+        // 2. 设置 sentinel 节点指向初始的 head，方便最终结果返回
+        // 3. 设置 node 节点对
+
+        // 5.6 codes
+        if (head == null || head.next == null) return head;
+        ListNode sentinel = new ListNode(0);
+        sentinel.next = head;
+        ListNode nextMove = sentinel;
+        while (head != null && head.next != null) {
+            // ListNode tmp = head.next;
+            ListNode tmp = head.next.next;
+            nextMove.next = head.next;
+            head.next.next = head;
+            head.next = tmp;
+
+        }
+        return sentinel.next;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // 4.22 codes
         if (head == null || head.next == null) return head;

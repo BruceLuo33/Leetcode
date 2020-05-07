@@ -38,6 +38,93 @@ import java.util.List;
  * }
  */
 class Solution {
+
+
+    // 4.17 第一遍，5.6第二遍
+    // 思路：整个待翻转的链表分为三个部分：已经翻转的，正要翻转的，还未翻转的。因此我们要做的主要工作就是将其分隔开。
+    // 所以我们需要五个指针：一个 sentinel，方便最终返回项；第二个是 subHead，正要翻转的链表的子头节点；
+    // 第三个是 toNull，即正要翻转的链表的最后一个节点，在这里将其断开；第四个是 tmp，用来暂时保存还未翻转的链表
+    // 最后一个是 tail，用来指向已经翻转后的链表的尾部
+    // 注意：将子链表断开后，需要一个 reverseHelper 函数来将其翻转
+    // 注意：将子链表翻转后，会得到一个 newSubHead，这时候不能用 `sentinel.next = newSubHead` 来指向它，
+    // 因为这会丢失掉前面已经翻转过的子链表，需要用 toNull 来指向它
+    // 注意：将 tail 指向翻转后的子链表尾部的时候，要指向 subHead 而不是 head。因为 head 在整个过程中没有动，如果指向 head
+    // 就会丢失很多内容。
+    // 注意：寻找长度为 k 的子链表的过程中，要用 for 循环而不能用 while。因为 `while(toNull != null)` 的判定条件会使得最终
+    // 结束循环的条件为 `toNull == null`，缺少了 `n < k` 这个条件的约束。造成空指针错误
+    // 注意：for 循环的时候，结束循环的条件应该是 `count < k - 1`，不是小于 k 的原因在于，toNull 指针设置的是指向 head，
+    // 相当于 k 的长度小了 1.
+    // 复杂度分析：O（N）
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (head == null || head.next == null) return head;
+
+        ListNode sentinel = new ListNode(0);
+        sentinel.next = head;
+        ListNode toNull = head;
+        ListNode subHead = head;
+        ListNode tail = sentinel;
+
+        while (subHead != null) {
+            for (int count = 0; count < k - 1; count++) {
+                toNull = toNull.next;
+                if (toNull == null) return sentinel.next;
+            }
+
+            ListNode tmp = toNull.next;
+            toNull.next = null;
+            ListNode newSubHead = reverse(subHead);
+            tail.next = newSubHead;
+            tail = subHead;
+            subHead = tmp;
+            toNull = tmp;
+            tail.next = tmp;
+
+        }
+        return sentinel.next;
+    }
+
+    private ListNode reverse(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode prev = null;
+        ListNode cur = null;
+        while (head != null ) {
+            cur = head.next;
+            head.next = prev;
+            prev = head;
+            head = cur;
+        }
+        return prev;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public ListNode reverseKGroup(ListNode head, int k) {
         if (head == null) {
             return null;
@@ -86,7 +173,7 @@ class Solution {
     public ListNode reverse(ListNode head) {
         ListNode prev = null;
         ListNode cur = null;
-        while (head != null) {
+        while (head != null ) {
             cur = head.next;
             head.next = prev;
             prev = head;
