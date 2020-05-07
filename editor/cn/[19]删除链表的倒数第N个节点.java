@@ -38,6 +38,23 @@ class Solution {
         // 则当第一个指针到达尾节点的时候，第二个指针刚好到达距离尾节点 n 的位置
         // 复杂度分析：O（2L-n）= O(N)，空间复杂度：O（1）
 
+        // 5.7 codes
+        ListNode sentinel = new ListNode(0);
+        sentinel.next = head;
+        ListNode firstMove = sentinel;
+        for (int i = 0; i < n; i++) {
+            firstMove = firstMove.next;
+        }
+        ListNode secondMove = sentinel;
+        while (firstMove != null && firstMove.next != null) {
+            firstMove = firstMove.next;
+            secondMove = secondMove.next;
+        }
+        secondMove.next = secondMove.next.next;
+        return sentinel.next;
+
+
+        // 4.20 codes
         ListNode sentinel = new ListNode(0);
         sentinel.next = head;
         ListNode first = sentinel;
