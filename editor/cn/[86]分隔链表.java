@@ -21,6 +21,53 @@
  */
 class Solution {
     public ListNode partition(ListNode head, int x) {
+
+        // 4.20 第一遍，5.7 第二遍
+        // 思路：先找到第一个大于等于 x 的node，然后将 tail节点指向它
+        // 然后不停的往后循环，遇到val 小于 x 的node，就将其移动到 tail 之前
+        // 注意：一定要将 move 的初始位置设置在 sentinel。否则就会跳过对第一个元素的判断，从而造成错误。
+        // 复杂度： O（N），空间复杂度：O（1）
+
+        if (head == null || head.next == null) return head;
+        ListNode sentinel = new ListNode(0);
+        sentinel.next = head;
+        ListNode subStart = head;
+        ListNode move = sentinel;
+        while (move != null && move.next != null) {
+            if (move.next.val >= x) {
+                subStart = move;
+                move = move.next;
+                break;
+            } else {
+                move = move.next;
+            }
+        }
+
+        while (move != null && move.next != null) {
+            if (move.next.val < x) {
+                ListNode tmp = move.next;
+                move.next = move.next.next;
+                tmp.next = subStart.next;
+                subStart.next = tmp;
+                subStart = subStart.next;
+
+            } else {
+                move = move.next;
+            }
+        }
+        return sentinel.next;
+
+
+        
+
+
+
+
+
+
+
+
+
         ListNode sentinel = new ListNode(0);
         sentinel.next = head;
         ListNode tail = sentinel;
