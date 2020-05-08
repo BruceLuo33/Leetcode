@@ -22,7 +22,7 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int nthUglyNumber(int n) {
-        // 4.25 第一遍
+        // 4.25 第一遍，4.27 第二遍，5.4 第三遍，5.8 第四遍
         // 思路：和263不同，这里是需要将丑数的规律找出来，类似于找到一个通项公式。
         // 通过观察可以发现，每一个丑数，都是 2x1、3x1、5x1 …… 2xN、3xN、5xN 来得出的，
         // 或者从另一个角度而言，每一个丑数 Xn，都是前面的一个某丑数（不一定是Xn-1）对应地乘 2 or 3 or 5 得到的。
@@ -32,10 +32,6 @@ class Solution {
         // 我们找上一个丑数是 X_loc2 or X_loc3 or X_loc5 的过程中，要对他们都进行判定。所以不能用 if-else，
         // 而应该都是 if
         // 复杂度分析：O（N），空间复杂度：O（k），k为input n 的最大值，1690.
-
-
-
-
 
         int[] ans = new int[1690];
         ans[0] = 1;
