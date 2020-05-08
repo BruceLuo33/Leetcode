@@ -91,7 +91,7 @@ class Solution {
         connect(root.left);
         connect(root.right);
         return root;
-    }sdfsd
+    }
 
     private Node getNext(Node root) {
         if (root == null) return null;
