@@ -33,6 +33,33 @@ class Solution {
         // 而应该都是 if
         // 复杂度分析：O（N），空间复杂度：O（k），k为input n 的最大值，1690.
 
+
+
+
+
+        int[] ans = new int[1690];
+        ans[0] = 1;
+        int index2 = 0, index3 = 0, index5 = 0;
+        int factor2 = 0, factor3 = 0, factor5 = 0;
+        for (int i = 1; i < n; i++) {
+            factor2 = 2 * ans[index2];
+            factor3 = 3 * ans[index3];
+            factor5 = 5 * ans[index5];
+            int min = Math.min(Math.min(factor2, factor3), factor5);
+            ans[i] = min;
+            if (min == factor2) index2 += 1;
+            if (min == factor3) index3 += 1;
+            if (min == factor5) index5 += 1;
+        }
+        return ans[n - 1];
+
+
+
+
+
+
+
+
         int[] ans = new int[n];
         ans[0] = 1;
         int factor2 = 0, factor3 = 0, factor5 = 0;
