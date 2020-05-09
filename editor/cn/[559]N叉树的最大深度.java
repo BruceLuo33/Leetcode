@@ -42,20 +42,30 @@ class Node {
 
 class Solution {
     public int maxDepth(Node root) {
-        // 4.24 第一遍
+        // 4.24 第一遍，5.3 第二遍
         // 思路：这道题的解法其实和 104 一样。不同之处在于 104 只有两个node，这里有很多个node
         // 所以只需要对整个 children 的 list 进行遍历就可以了。
         // 简单来说，一棵树的最大高度，就是所有子树中的最大高度 + 1
+        // 注意：递归调用的位置，应该在 children 节点。
         // 复杂度分析：O（N）
 
         if (root == null) return 0;
-        if (root.children.isEmpty()) return 1;
-        int maxHeight = 0;
-        for (Node i : root.children) {
-            int tmp = maxDepth(i);
-            maxHeight = Math.max(maxHeight, tmp);
+        int maxVal = 0;
+        for (Node child : root.children) {
+            int tmp = maxDepth(child);
+            maxVal = Math.max(maxVal, tmp);
         }
-        return maxHeight + 1;
+        return maxVal + 1;
+
+
+        // if (root == null) return 0;
+        // if (root.children.isEmpty()) return 1;
+        // int maxHeight = 0;
+        // for (Node i : root.children) {
+        //     int tmp = maxDepth(i);
+        //     maxHeight = Math.max(maxHeight, tmp);
+        // }
+        // return maxHeight + 1;
 
     }
 }
