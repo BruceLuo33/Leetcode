@@ -71,34 +71,35 @@ class Node {
 */
 
 class Solution {
-    // 5.8 第一遍
-    // 思路：和116题比较类似，但是区别在于这里不再是完美二叉树，而是一棵普通的二叉树，那么就可能存在空子节点，所以在连接next 的时候就需要增加一些判断。
-    // 依旧使用递归，不过在这里，因为需要判断每一层的空子节点数，所以需要一个 hasNext 来遍历整层，相当于 BFS 的层序遍历。
-    // 遍历的核心代码见下：
-    // 复杂度分析：O（N）
+    class Solution {
+        // 5.8 第一遍，5.11 第二遍
+        // 思路：和116题比较类似，但是区别在于这里不再是完美二叉树，而是一棵普通的二叉树，那么就可能存在空子节点，所以在连接next 的时候就需要增加一些判断。
+        // 依旧使用递归，不过在这里，因为需要判断每一层的空子节点数，所以需要一个 hasNext 来遍历整层，相当于 BFS 的层序遍历。
+        // 遍历的核心代码见下：
+        // 复杂度分析：O（N）
 
-    public Node connect(Node root) {
-        if (root == null) return root;
-        if (root.left != null && root.right != null) {
-            root.left.next = root.right;
+        public Node connect(Node root) {
+            if (root == null) return root;
+            if (root.left != null && root.right != null) {
+                root.left.next = root.right;
+            }
+            if (root.left != null && root.right == null) {
+                root.left.next = getNext(root.next);
+            }
+            if (root.right != null) {
+                root.right.next = getNext(root.next);
+            }
+            connect(root.right);
+            connect(root.left);
+            return root;
         }
-        if (root.left != null && root.right == null) {
-            root.left.next = getNext(root.next);
-        }
-        if (root.right != null) {
-            root.right.next = getNext(root.next);
-        }
-        connect(root.left);
-        connect(root.right);
-        return root;
-    }
 
-    private Node getNext(Node root) {
-        if (root == null) return null;
-        if (root.left != null) return root.left;
-        if (root.right != null) return root.right;
-        if (root.next != null) return getNext(root.next);
-        return null;
-    }
+        private Node getNext(Node root) {
+            if (root == null) return null;
+            if (root.left != null) return root.left;
+            if (root.right != null) return root.right;
+            if (root.next != null) return getNext(root.next);
+            return null;
+        }
 }
 //leetcode submit region end(Prohibit modification and deletion)
