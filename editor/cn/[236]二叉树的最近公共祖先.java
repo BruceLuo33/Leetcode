@@ -46,7 +46,7 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // 5.10 第一遍
+        // 5.10 第一遍，5.11 第二遍
         // 思路：递归。关键问题在于对参数 `left` 和 `right` 的理解，因为这是递归，所以在写递归语句的时候，可以认为左右子树都已经算出来了结果。
         // 1. 如果当前节点 root 为 null，那么就直接返回 null；
         // 2. 如果 root 等于 p 或者是 q，那么就返回 p or q；
@@ -55,16 +55,30 @@ class Solution {
         // 复杂度分析：O（N）
 
 
-        // if (root == null) return null;
-        if (root == null || root == p || root == q) return root;
+
+        if (root == null || root == q || root == p) return root;
 
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
 
+        if (left == null && right == null) return null;
+        if (left != null && right != null) return root;
         if (left == null) return right;
         if (right == null) return left;
-        if (left != null && right != null) return root;
         return null;
+
+
+
+        // if (root == null) return null;
+        // if (root == null || root == p || root == q) return root;
+
+        // TreeNode left = lowestCommonAncestor(root.left, p, q);
+        // TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        // if (left == null) return right;
+        // if (right == null) return left;
+        // if (left != null && right != null) return root;
+        // return null;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
