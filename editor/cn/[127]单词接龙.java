@@ -45,8 +45,18 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
  5.13 第一遍
- 思路：BFS。
-
+ 思路：BFS。步骤如下：
+ 1. 将第一个单词节点加入队列，depth 设置为 0，在最后返回的时候 再 +1；
+ 2. 方法是层序遍历，那么关键就在于如何讲每一层顺序放入queue中。在这个题目中，我们采用的是两个 while 循环的形式：
+ 第一个`while(!queue.isEmpty())` 用来判断整个遍历是否完成
+ 第二个`while(size > 0)`用来判断某一层是否完成。这里的 `size = queue.size()`，之所以要用一个新的参数来判定是因为 queue 在第二个while中会发生变化，所以需要一个固定的值来保证不会超出这一层的范围。
+ 例如，刚开始的时候只有一个 beginWord，那么 size 就是 1. 而后在第二个while 中每次都会 size -= 1；所以对于这一层而言，只会循环一次便跳出循环，来到最外层的 while 循环。
+ 3. 在两个while 循环之内，还需要一个 for-loop，这个循环的对象是题目给定的 wordList 数组，也是我们的核心代码部分。需要在这里判断：
+ word 是否已经出现过？如果是，continue；
+ 两个 string 相差是否超过了一个 char 字符？如果是，continue；
+ 是否到达了 endWord？如果是，直接 return depth + 1；
+ 如果都没有，将这个字符标记为出现过，同时将 wordList 中剩下的元素全都加入 queue。此时第二层循环如果结束了，再次进入的时候 size 就变大了。
+ 复杂度分析：O（N*26^l），l = len(beginword)
 
  */
 
