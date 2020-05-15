@@ -37,7 +37,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 5.13 第一遍
+ 5.13 第一遍，5.15 第二遍
  思路：贪心算法。步骤如下：
  1. 先将两个数组排序，然后设置两个指针分别指向两个数组的首位置；
  2. 设置 while 循环，当两个指针中某一个到达终点就结束。在 while 中做如下判断：
