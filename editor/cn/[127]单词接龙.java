@@ -43,8 +43,16 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+
+import edu.princeton.cs.algs4.In;
+import sun.tools.tree.ShiftRightExpression;
+
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
- 5.13 第一遍，5.14 第二遍，5.20 第三遍
+ 5.13 第一遍，5.14 第二遍，5.20 第三遍，5.21 第四遍
  思路：BFS。步骤如下：
  1. 将第一个单词节点加入队列，depth 设置为 0，在最后返回的时候 再 +1；
  2. 方法是层序遍历，那么关键就在于如何讲每一层顺序放入queue中。在这个题目中，我们采用的是两个 while 循环的形式：
@@ -61,6 +69,116 @@
  */
 
 class Solution {
+
+    // 双向 BFS 优化
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        int endPos = wordList.indexOf(endWord);
+        Set<String> allWords = new HashSet<>(wordList);
+        if (endPos == -1 || wordList.size() == 0) return 0;
+        wordList.add(beginWord);
+        Queue<String> queueOne = new LinkedList<>();
+        Queue<String> queueTwo = new LinkedList<>();
+        Set<String> visitedOne = new HashSet<>();
+        Set<String> visitedTwo = new HashSet<>();
+        queueOne.offer(beginWord);
+        queueTwo.offer(endWord);
+        visitedOne.add(beginWord);
+        visitedTwo.add(endWord);
+        int depth = 0;
+        while (!queueOne.isEmpty() && !queueTwo.isEmpty()) {
+            depth += 1;
+            if (queueOne.size() > queueTwo.size()) {
+                Queue<String> tmpQueue = queueOne;
+                queueOne = queueTwo;
+                queueTwo = tmpQueue;
+                Set<String> tmpSet = visitedOne;
+                visitedOne = visitedTwo;
+                visitedTwo = tmpSet;
+            }
+            int size = queueOne.size();
+            while (size > 0) {
+                size -= 1;
+                String cur = queueOne.poll();
+                char[] word = cur.toCharArray();
+                for (int i = 0; i < word.length; i++) {
+                    char c0 = word[i];
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        word[i] = c;
+//                        String newString = String.valueOf(word);
+                        String newString = new String(word);
+                        if (visitedOne.contains(newString)) continue;
+                        if (visitedTwo.contains(newString)) return depth + 1;
+                        if (allWords.contains(newString)) {
+                            queueOne.offer(newString);
+                            visitedOne.add(newString);
+                        }
+                    }
+                    word[i] = c0;
+                }
+            }
+        }
+        return 0;
+    }
+
+
+    // 双向 BFS
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        int endPos = wordList.indexOf(endWord);
+        if (endPos == -1) return 0;
+        wordList.add(beginWord);
+        int startPos = wordList.size() - 1;
+        Queue<String> queueOne = new LinkedList<>();
+        Queue<String> queueTwo = new LinkedList<>();
+        Set<Integer> visitedOne = new HashSet<>();
+        Set<Integer> visitedTwo = new HashSet<>();
+        queueOne.offer(beginWord);
+        queueTwo.offer(endWord);
+        visitedOne.add(startPos);
+        visitedTwo.add(endPos);
+        int depth = 0;
+        while (!queueOne.isEmpty() && !queueTwo.isEmpty()) {
+            depth += 1;
+            if (queueOne.size() > queueTwo.size()) {
+                Queue<String> tmpQueue = queueOne;
+                queueOne = queueTwo;
+                queueTwo = tmpQueue;
+                Set<Integer> tmpSet = visitedOne;
+                visitedOne = visitedTwo;
+                visitedTwo = tmpSet;
+            }
+            int sizeOne = queueOne.size();
+            while (sizeOne > 0) {
+                sizeOne -= 1;
+                String cur = queueOne.poll();
+                for (int i = 0; i < wordList.size(); i++) {
+                    if (visitedOne.contains(i)) {
+                        continue;
+                    }
+                    if (!compare(cur, wordList.get(i))) {
+                        continue;
+                    }
+                    if (visitedTwo.contains(i)) {
+                        return depth + 1;
+                    }
+                    visitedOne.add(i);
+                    queueOne.offer(wordList.get(i));
+                }
+            }
+        }
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    // 单向 BFS
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         if (!wordList.contains(endWord)) {
             return 0;
