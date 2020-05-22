@@ -16,12 +16,15 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+/**
+ 5.8 第一遍，5.22 第二遍
+ 思路一：回溯。
+ 注意：在result.add(路径)这里，括号内要写 `new LinkedList<Integer>(track)` 而不能简单的写 `track`。否则会出现空链表。
+ 复杂度分析：O（N）
+ */
+
 class Solution {
-    // 5.8 第一遍
-    // 思路一：回溯。
-    // 注意：在往ans数组中添加值得时候，要注意不能写 `ans.add(track)`，因为添加的事实上是一组指向值的地址，所以会随着track 每次路径的不同而改变。而最终track 会回到起始点，也就是空集，这样就会造成最后的所有subset都是空集。
-        // 解决方法：`ans.add(new LinkedList<Integer>(track))` 即可
-    // 复杂度分析：O（NxN!）
+
     List<List<Integer>> ans = new LinkedList<>();
     public List<List<Integer>> permute(int[] nums) {
         LinkedList<Integer> track = new LinkedList<>();
