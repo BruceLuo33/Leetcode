@@ -20,10 +20,15 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+/**
+ 5.9 第一遍，5.22 第二遍
+ 思路：回溯算法。套模板就可以了。
+ 注意：模板中不再需要 if 来判断结束条件，因为这道题求子集，相当于决策树上的每一个节点的路径数组都要访问到。
+
+ */
+
+
 class Solution {
-    // 5.9 第一遍
-    // 思路：回溯算法。套模板就可以了。
-    // 注意：模板中不再需要 if 来判断结束条件，因为这道题求子集，相当于决策树上的每一个节点的路径数组都要访问到。
 
 
     List<List<Integer>> ans = new LinkedList<>();
