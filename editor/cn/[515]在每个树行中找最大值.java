@@ -27,12 +27,13 @@
  * }
  */
 /**
- 5.13 第一遍
+ 5.13 第一遍，5.22 第二遍
  思路：BFS。递归每一层，找到每一层的最大值，将其放入ans 数组即可。
  注意：
  1. max 的初始化 `int max = Integer.MIN_VALUE` 要放在第一个 while 循环中
  2. 对 queue 首元素的提取，要放在第二个 while 里面
  3. 继续往 queue 中添加的是 node 的左右子节点
+ 4. 往queue中添加TreeNode 时，要先判断左右子树是否为空
  */
 class Solution {
     public List<Integer> largestValues(TreeNode root) {
