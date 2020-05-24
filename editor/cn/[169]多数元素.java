@@ -42,7 +42,6 @@ class Solution {
         }
         return -1;
 
-
         // Solution 3：
         int count = 1, len = nums.length;
         int move = nums[0];
