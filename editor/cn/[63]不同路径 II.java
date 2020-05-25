@@ -31,7 +31,7 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
  5.24 第一遍
- 思路：动态规划。
+ 思路：动态规划。注意的是这里对于左/上边的处理有所不同。
  */
 class Solution {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
