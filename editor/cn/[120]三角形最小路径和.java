@@ -26,7 +26,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 5.25 第一遍
+ 5.25 第一遍，5.27 第二遍
  - 思路：动态规划。仔细观察题目，要求的不是说每一行中的最小值之和，而是“相邻结点”。
  1. 因此这个问题和 62/63/1143 都有了相似之处，那就是都从左上角出发，往右下走；
  2. 不同之处在于这里不一定是要到达右下角。并且每次都必须往下走一步，但是是否往右走就不一定。基于此，我们的思考最佳路径，还是与以前一样，用二维数组来解决；
@@ -52,17 +52,18 @@ class Solution {
     }
 
     public int minimumTotal(List<List<Integer>> triangle) {
-        if (triangle == null || triangle.size() == 0) return 0;
         int m = triangle.size();
-        int[][] dp = new int[m + 1][m + 1];
+        // int[][] dp = new int[m + 1][m + 1];
+        int[] dp = new int[m+1];
         for (int i = m - 1; i >= 0; i--) {
             List<Integer> curLayer = triangle.get(i);
-            int n = triangle.get(i).size();
+            int n = curLayer.size();
             for (int j = 0; j < n; j++) {
-                dp[i][j] = Math.min(dp[i+1][j], dp[i+1][j+1]) + curLayer.get(j);
+                // dp[i][j] = curLayer.get(j) + Math.min(dp[i + 1][j], dp[i+1][j+1]);
+                dp[j] = curLayer.get(j) + Math.min(dp[j], dp[j+1]);
             }
         }
-        return dp[0][0];
+        return dp[0];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
