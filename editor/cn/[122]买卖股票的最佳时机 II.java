@@ -42,11 +42,34 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 5.15 第一遍
- 思路：贪心算法。这是超哥课程上的例题，采用的算法就是低买高卖，求得累加最大值。
+ 5.15 第一遍，5.29 第二遍
+ - 思路一：贪心算法。这是超哥课程上的例题，采用的算法就是低买高卖，求得累加最大值。
+ - 思路二：动态规划。参考 121 题的笔记，三个参数 i、k、s，这里变化的是 k，从 121 题的 k = 1 变成了 k = inf。看起来有很大的变化但是实际上还是一样的思路。因为当 k -> inf 的时候，k = k - 1，所以实际上 k 也可以省略。
+ 1. Recursive cases:
+ - dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+ - dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k][0] - prices[i])，这里最后一项是 k 而非 k - 1
+ - 观察发现，两个式子中的 k 实际上都没有发生变化，所以可以省略不去管它
+ 2. Update Recursive cases:
+ - dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+ - dp[i][1] = max(dp[i-1][1], dp[i-1][0] - prices[i])
  复杂度分析：O（N）
  */
 class Solution {
+
+    // Solution Two：DP
+    public int maxProfit(int[] prices) {
+        if (prices.length == 0) return 0;
+        int n = prices.length;
+        int dp_i0 = 0, dp_i1 = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            int tmp = dp_i0;
+            dp_i0 = Math.max(dp_i0, dp_i1 +prices[i]);
+            dp_i1 = Math.max(dp_i1, tmp - prices[i]);
+        }
+        return dp_i0;
+    }
+
+    // Solution One：贪心算法
     public int maxProfit(int[] prices) {
         int profit = 0;
         int len = prices.length;
