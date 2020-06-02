@@ -33,13 +33,40 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+/**
+ 4.28 第一遍，4.29 第二遍，5.4 第三遍，5.11 第四遍，6.2 第五遍
+ 思路：使用 BFS 对树进行层间遍历。每次都用一个队列来接受root，然后将其放入答案链表即可。
+ 注意：在判定当前子节点等级与 ans size 的关系的时候，要写 >= 而非 >，因为在一开始的时候，二者都是 0，如果不加 =，整个
+ 循环就无法开始。
+ 注意：往队列里添加的应该是 curNode.left 而不是 root.left
+ 复杂度分析：O（N） 空间复杂度：O（N）
+
+ */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        // 4.28 第一遍，4.29 第二遍，5.4 第三遍，5.11 第四遍
-        // 思路：使用 BFS 对树进行层间遍历。每次都用一个队列来接受root，然后将其放入答案链表即可。
-        // 注意：在判定当前子节点等级与 ans size 的关系的时候，要写 >= 而非 >，因为在一开始的时候，二者都是 0，如果不加 =，整个
-        // 循环就无法开始。
-        // 复杂度分析：O（N） 空间复杂度：O（N）
+
+        //6.2 codes
+        List<List<Integer>> ans = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        if (root == null) return ans;
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            List<Integer> tmp = new ArrayList<>();
+            int size = queue.size();
+            while (size > 0) {
+                size -= 1;
+                TreeNode curNode = queue.poll();
+                tmp.add(curNode.val);
+                if (curNode.left != null) {
+                    queue.offer(curNode.left);
+                }
+                if (curNode.right != null) {
+                    queue.offer(curNode.right);
+                }
+            }
+            ans.add(tmp);
+        }
+        return ans;
 
 
 
@@ -59,42 +86,41 @@ class Solution {
                     ans.add(new ArrayList<>());
                 }
                 ans.get(curLevel).add(curNode.val);
-                node.offer(root.left);
-                node.offer(root.right);
+                node.offer(curNode.left);
+                node.offer(curNode.right);
                 level = curLevel + 1;
                 nodeLevel.offer(level);
                 nodeLevel.offer(level);
             }
         }
         return ans;
-
 
 
         // 5.4 codes
-        List<List<Integer>> ans = new ArrayList<>();
-        Queue<TreeNode> node = new LinkedList<>();
-        Queue<Integer> nodeLevel = new LinkedList<>();
-        node.offer(root);
-        int level = 0;
-        nodeLevel.offer(level);
+        // List<List<Integer>> ans = new ArrayList<>();
+        // Queue<TreeNode> node = new LinkedList<>();
+        // Queue<Integer> nodeLevel = new LinkedList<>();
+        // node.offer(root);
+        // int level = 0;
+        // nodeLevel.offer(level);
 
-        while (!node.isEmpty()) {
-            TreeNode curNode = node.poll();
-            Integer curLevel = nodeLevel.poll();
-            if (curNode != null) {
-                if (curLevel >= ans.size()) {
-                    ans.add(new ArrayList<>());
-                }
-                ans.get(curLevel).add(curNode.val);
-                level = curLevel + 1;
-                node.offer(curNode.left);
-                node.offer(curNode.right);
-                nodeLevel.offer(level);
-                nodeLevel.offer(level);
-            }
+        // while (!node.isEmpty()) {
+        //     TreeNode curNode = node.poll();
+        //     Integer curLevel = nodeLevel.poll();
+        //     if (curNode != null) {
+        //         if (curLevel >= ans.size()) {
+        //             ans.add(new ArrayList<>());
+        //         }
+        //         ans.get(curLevel).add(curNode.val);
+        //         level = curLevel + 1;
+        //         node.offer(curNode.left);
+        //         node.offer(curNode.right);
+        //         nodeLevel.offer(level);
+        //         nodeLevel.offer(level);
+        //     }
 
-        }
-        return ans;
+        // }
+        // return ans;
 
 
         // 4.29 codes
@@ -124,6 +150,8 @@ class Solution {
         // }
         // return ans;
 
+
+
         // 4.28 codes
         // List<List<Integer>> ans = new ArrayList<>();
         // if (root == null) return ans;
@@ -151,6 +179,7 @@ class Solution {
         //     }
         // }
         // return ans;
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
