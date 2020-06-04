@@ -39,7 +39,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 6.2 第一遍
+ 6.2 第一遍，6.4 第二遍
  - 思路一：dfs。类似于岛屿数量题的思路
  1. 因为有 n 名学生，所以 isVisted 数组就可以设置为 n 的大小，它代表的是某一个人是否属于某一个朋友圈；
  2. 具体而言，我们从第一个人出发，通过 dfs helper 函数，找到所有与他相连接的人，直到找不到为止，然后 count++；
