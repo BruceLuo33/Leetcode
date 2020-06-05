@@ -60,7 +60,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 6.4 第一遍
+ 6.4 第一遍，6.5 第二遍
  - 思路：三次判定：
  1. 首先，设置 boolean 矩阵，第一个对应的是对于每一行中是否出现重复元素的判定，row 代表的是 board 的 0 - 8 行，col 中的 0 - 8 代表的是九个数字是否曾经出现；
  2. 同理，第二个矩阵是对于每一列中是否有重复元素的判定，row 代表的是每一行；第三个矩阵是对于每一个小 block 中是否有重复元素的判定；
