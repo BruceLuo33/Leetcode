@@ -29,37 +29,39 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+/**
+ 6.6 第二遍
+ - 思路：
+ 1. 判断 nums1 与 nums2 的长度，将较短的放入 HashMap 中，遇到相同的key则将value += 1，在放入的过程中，更新value的方式就是重新put一次，在《算法4》234页有类似的操作。
+ 2. 然后循环 nums2，判断nums2 中的元素是否在 HashMap 中，若是，则将其放入 ArrayList，然后vale -= 1
+ 3. 采用 Arraylist 存放交集的原因，是数组长度固定，但是我们并不知道交集的大小，所以先存放到一个临时的容器里面，然后最后将其装入最终的数组
+ - 复杂度：O（m+n），空间复杂度：O（n）
+ */
 class Solution {
     public int[] intersect(int[] nums1, int[] nums2) {
-        // 思路：判断 nums1 与 nums2 的长度，将较短的放入 hashMap 中，遇到相同的key则将value += 1
-        // 在放入的过程中，更新value的方式就是重新put一次，在《算法4》234页有类似的操作
-        // 然后循环 nums2，判断nums2 中的元素是否在 hashmap 中，若是，则将其放入 arraylist，然后vale -= 1
-        // 采用 Arraylist 存放交集的原因，是数组长度固定，但是我们并不知道交集的大小，
-        // 所以先存放到一个临时的容器里面，然后最后将其装入最终的数组
-        // 复杂度：O（m+n），空间复杂度：O（n）
-        if (nums2.length < nums1.length) {
-            return intersect(nums2, nums1);
+        if (nums1.length > nums2.length) {
+            int[] tmp = nums1;
+            nums1 = nums2;
+            nums2 = tmp;
         }
         HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i : nums1) {
-            if (map.containsKey(i)) {
-                map.put(i, map.get(i) + 1);
-            } else {
-                map.put(i, 1);
-            }
+        List<Integer> tmpAns = new ArrayList<>();
+        for (int n : nums1) {
+            if (map.containsKey(n))
+                map.put(n, map.get(n) + 1);
+            else
+                map.put(n, 1);
         }
-        ArrayList<Integer> tmpAns = new ArrayList<>();
-        for (int i : nums2) {
-            if (map.containsKey(i) && map.get(i) > 0) {
-                tmpAns.add(i);
-                map.put(i, map.get(i) - 1);
+        for (int m : nums2) {
+            if (map.containsKey(m) && map.get(m) > 0) {
+                tmpAns.add(m);
+                map.put(m, map.get(m) - 1);
             }
         }
         int[] ans = new int[tmpAns.size()];
         int address = 0;
         for (int i : tmpAns) {
-            ans[address] = i;
-            address += 1;
+            ans[address++] = i;
         }
         return ans;
     }
