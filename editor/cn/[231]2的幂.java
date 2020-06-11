@@ -22,7 +22,7 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
  6.11 第一遍
- 思路：位运算
+ 思路：位运算。
  */
 class Solution {
     public boolean isPowerOfTwo(int n) {
