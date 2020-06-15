@@ -20,25 +20,28 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+/**
+ 4.23 第一遍，5.3 第二遍，6.15 第二遍
+ - 思路一：暴力破解。将string sort，然后比较每一个元素。
+ - 思路二：HashMap。第一个循环将 s 中的所有char 放入map，然后再去检查 t 中每一个元素是否在里面
+ 1. 在这道题中，因为比较的元素只有 26 个字母，所以我们事实上可以用数组来充当 HashMap，0-25 分别代表 a-z
+ 2. 遍历两个字符串， String s 中出现的字母，将其对应数组值 +1，String t 中出现的字母，将其对应数组值 -1，最后判断这个数字是否为空即可。
+ - 复杂度分析：1、O（NlogN）；2、O（N）
+ - 注意：不要将 s/t 转换为 charArray，直接用 charAt 来做就可以了
+ */
+
 class Solution {
     public boolean isAnagram(String s, String t) {
-        // 4.23 第一遍，5.3 第二遍
-        // 思路一：暴力破解。将string sort，然后比较每一个元素。
-        // 思路二：HashMap。第一个循环将 s 中的所有char 放入map，然后再去检查 t 中每一个元素是否在里面
-        // 在这道题中，因为比较的元素只有 26 个字母，所以我们事实上可以用数组来充当 HashMap，0-25 分别代表 a-z
-        // 遍历两个字符串， String s 中出现的字母，将其对应数组值 +1，String t 中出现的字母，将其对应数组值 -1，
-        // 最后判断这个数字是否为空即可。
-        // 复杂度分析：1、O（NlogN）；2、O（N）
-        // 注意：不要将 s/t 转换为 charArray，直接用 charAt 来做就可以了
+
 
         if (s.length() != t.length()) return false;
-        int[] compare = new int[26];
+        int[] ans = new int[26];
         for (int i = 0; i < s.length(); i++) {
-            compare[s.charAt(i) - 'a']++;
-            compare[t.charAt(i) - 'a']--;
+            ans[s.charAt(i) - 'a'] += 1;
+            ans[t.charAt(i) - 'a'] -= 1;
         }
-        for (int i = 0; i < compare.length; i++) {
-            if (compare[i] != 0) return false;
+        for (int a : ans) {
+            if (a != 0) return false;
         }
         return true;
 
