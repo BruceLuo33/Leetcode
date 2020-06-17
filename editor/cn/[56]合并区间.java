@@ -17,7 +17,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 6.15 第一遍
+ 6.15 第一遍，6.17 第二遍
  - 思路：贪心算法。
  1. 先对所有子区间的左边界进行排序，那么我们的问题就从要比较左边界 + 右边界，变成了只要考虑右边界了；
  2. 比较上一个区间和这一个区间的值，具体而言，上一个区间的右边界 compair[1] 和这一个区间的左边界 cur[0] 的相对大小
@@ -28,18 +28,17 @@
  */
 class Solution {
     public int[][] merge(int[][] intervals) {
-        int len = intervals.length;
-        if (len < 2) return intervals;
+        if (intervals.length < 2) return intervals;
+        Arrays.sort(intervals, (v1,v2) -> v1[0]-v2[0]);
         List<int[]> ans = new ArrayList<>();
-        Arrays.sort(intervals, (v1, v2) -> v1[0] - v2[0]);
         ans.add(intervals[0]);
         for (int i = 1; i < intervals.length; i++) {
-            int[] curIntervals = intervals[i];
+            int[] curArray = intervals[i];
             int[] compair = ans.get(ans.size() - 1);
-            if (curIntervals[0] > compair[1]) {
-                ans.add(curIntervals);
+            if (compair[1] < curArray[0]) {
+                ans.add(curArray);
             } else {
-                compair[1] = Math.max(curIntervals[1], compair[1]);
+                compair[1] = Math.max(compair[1], curArray[1]);
             }
         }
         return ans.toArray(new int[ans.size()][]);
