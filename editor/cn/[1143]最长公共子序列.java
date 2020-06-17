@@ -43,27 +43,32 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 5.25 第一遍
+ 5.25 第一遍，6.17 第二遍
  - 思路：动态规划。这个题的思路非常巧妙，将两个一维的字符串，变成了一个二维的字符表。步骤如下：
  1. 如果矩阵某个位置的值不相等，即 `text1.charAt(i) == text2.charAt(j)` 不成立，那么这个位置的值，应该等于左上角所有元素的最大值，代表着到目前为止，仅有 x 个char相等；
  2. 如果某个位置的 char 相等，那么该对应位置的 dp[i][j] 应该将上斜对角的 dp[i-1][j-1] 矩阵的值加一。之所以不用 `Math.max(dp[i-1][j], dp[i][j-1]) + 1`，即上和左侧格子较大值 + 1 的原因是，子序列需要在两个 string 中都存在，如果采用这种方法，就会违背这个原则；
  3. 为了避免 dp[i-1][j-1] 出现数组越界错误，在一开始的时候设置矩阵的大小为 [m+1][n+1]
  - 复杂度分析：O（M x N）
  */
+
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
-        int m = text1.length() + 1, n = text2.length() + 1;
-        int[][] dp = new int[m][n];
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
-                    dp[i][j] = dp[i-1][j-1] + 1;
+        if (text1.length() == 0 || text2.length() == 0) return 0;
+        char[] one = text1.toCharArray();
+        char[] two = text2.toCharArray();
+        int m = text1.length(), n = text2.length();
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (one[i - 1] == two[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
-                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
                 }
             }
         }
-        return dp[m-1][n-1];
+        return dp[m][n];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
