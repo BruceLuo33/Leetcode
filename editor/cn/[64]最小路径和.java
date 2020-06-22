@@ -18,33 +18,25 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 5.30 第一遍
- - 思路：动态规划。乍一看这道题和之前做的路径之和一样，不过这里求的是最小的路径，62 题求得是所有路径的可能。这里从左上角出发：
- 1. 如果 `i == 0 && j == 0`，说明就是左上角顶点，令 dp[i][j] = grid[i][j]
- 2. 如果不是，继续判断 `i == 0 ` 和 `j == 0`，此时因为 i - 1 和 j - 1 分别都数组越界了，所以需要额外判断
- 3. 最后就是状态转移方程：dp[i][j] = grid[i][j] + Math.min(dp[i][j-1], dp[i-1][j]);
- - 复杂度分析：O（MN），空间复杂度：O（MN)
+ 5.30 第一遍，6.22 第二遍
+ - 思路：动态规划。乍一看这道题和之前做的路径之和一样，不过这里求的是最小的路径，62 题求得是所有路径的可能。自底向上，就需要先考虑 dp 数组的定义和 base case。
+ 1. dp 数组的定义：定义为到达某个格子 dp[i][j] 的时候，所需要的步数；
+ 2. base case：因为路径只能是往下或者右边，所以在左边界以及上边界上的值将会是确定的，即当前值加上左边/上方的值；
+ 3. 状态转移方程：当前格子的值，等于左边或者上面的较小值相加，同时因为改变 grid 的值不影响结果，所以方程为：`grid[i][j] += Math.min(grid[i-1][j], grid[i][j-1])`
+ - 复杂度分析：O(N^2)
  */
 class Solution {
     public int minPathSum(int[][] grid) {
-        if (grid == null || grid.length == 0 || grid[0].length == 0) return 0;
+        if (grid == null) return 0;
         int m = grid.length, n = grid[0].length;
-        int[][] dp = new int[m][n];
-        dp[0][0] = grid[0][0];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i == 0 && j == 0) {
-                    dp[i][j] = grid[i][j];
-                } else if (i == 0) {
-                    dp[i][j] = grid[i][j] + dp[i][j-1];
-                } else if (j == 0) {
-                    dp[i][j] = grid[i][j] + dp[i-1][j];
-                } else{
-                    dp[i][j] = grid[i][j] + Math.min(dp[i][j-1], dp[i-1][j]);
-                }
+        for (int i = 1; i < m; i++) grid[i][0] += grid[i - 1][0];
+        for (int j = 1; j < n; j++) grid[0][j] += grid[0][j - 1];
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                grid[i][j] += Math.min(grid[i - 1][j], grid[i][j - 1]);
             }
         }
-        return dp[m-1][n-1];
+        return grid[m - 1][n - 1];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
