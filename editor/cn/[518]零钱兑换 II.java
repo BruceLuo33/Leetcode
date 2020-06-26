@@ -57,7 +57,11 @@
  - 综合来看，如果 `amount - coin >= 0`，有放或者是不放两个选择，即`dp[i][j] = dp[i-1][j] + dp[i][j - coins[i-1]]`；否则，如果 coin 大于 amount，就只有可能不放了，此时 `dp[i][j] = dp[i-1][j-1]`
  - 复杂度分析：O(N^2)
  */
+
+
+
 class Solution {
+    // 二维解法
     // public int change(int amount, int[] coins) {
     //     int m = coins.length;
     //     int[][] dp = new int[m + 1][amount + 1];
