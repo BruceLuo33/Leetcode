@@ -19,60 +19,30 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+/**
+ 4.10 第一遍；4.22 第二遍，6.28 第三遍
+ - 思路：双指针。从数组的两端往中间遍历。
+ 1. 因为面积 = 距离 x 较短挡板。所以要想找到更大的面积，应该移动短挡板。
+ 2. 这是因为：如果移动长挡板，只会出现面积不变或者更小两个可能。
+ 3. 将每次的面积与 maxArea 中对比，判断是否更新最大面积。
+ */
+
 class Solution {
     public int maxArea(int[] height) {
-//        int first = 0;
-//        int last = height.length - 1;
-//        int maxArea = 0;
-//        while (first < last){
-//            maxArea = Math.max(maxArea, Math.min(height[first], height[last]) * (last - first));
-//            if (height[first] < height[last]) {
-//                first += 1;
-//            } else {
-//                last -= 1;
-//            }
-//        }
-//        return maxArea;
-
-        // 4.10 第一遍；4.22 第二遍
-        // 思路：双指针。从数组的两端往中间遍历。
-        // 因为面积 = 距离 x 较短挡板。所以要想找到更大的面积，应该移动短挡板。
-        // 这是因为：如果移动长挡板，只会出现面积不变或者更小两个可能。
-        // 将每次的面积与 maxArea 中对比，判断是否更新最大面积。
-
-        // 4.22 codes:
-        int first = 0, last = height.length - 1;
-        int maxArea = 0, smallerHeight = 0;;
-        while (last > first) {
-            smallerHeight = height[first] > height[last] ? height[last] : height[first];
-            maxArea = Math.max(maxArea, (last - first) * smallerHeight);
-            if (smallerHeight == height[first]) {
-                first += 1;
-            } else {
-                last -= 1;
-            }
-        }
-        return maxArea;
-
-
-        // 4.10 codes:
-        int first = 0;
-        int last = height.length - 1;
+        if (height.length < 2) return 0;
         int maxArea = 0;
-        while (first < last) {
-//        for (int i = 0; i < Math.round(height.length * 0.5); i++) {
-            int tmpArea = (last - first) * Math.min(height[last], height[first]);
-            if (maxArea < tmpArea) {
-                maxArea = tmpArea;
-            }
-            if (height[first] <= height[last]) {
-                first += 1;
+        int relativeMin = 0;
+        int left = 0, right = height.length - 1;
+        while (left < right) {
+            relativeMin = Math.min(height[left], height[right]);
+            maxArea = Math.max(maxArea, relativeMin * (right - left));
+            if (relativeMin == height[left]) {
+                left += 1;
             } else {
-                last -= 1;
+                right -= 1;
             }
         }
         return maxArea;
-
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
