@@ -26,7 +26,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 6.28 第一遍
+ 6.28 第一遍，6.29 第二遍
  - 思路：模运算、队列。
  */
 class Solution {
