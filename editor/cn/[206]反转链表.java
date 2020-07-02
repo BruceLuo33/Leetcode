@@ -22,26 +22,23 @@ import javax.swing.*;
  *     ListNode(int x) { val = x; }
  * }
  */
+/**
+ 4.20 第一遍，7.2 第三遍
+ - 思路：链表的题，画图就是了。
+ */
 class Solution {
     public ListNode reverseList(ListNode head) {
-        /**
-         * My solution about the reverse linked list:
-         * To reverst the linked list, we need to rever each node in a for-loop.
-         * For instance, the input is 1 -> 2 -> 3 -> 4 -> 5 -> NULL,
-         * we need to reverse the first node at beginning, which is, 1 <- 2 -> 3 -> 4 -> 5
-         * And loop to the end of the list.
-         * */
+
         ListNode prev = null;
         ListNode tmp = null;
         if (head == null) return prev;
         while (head != null) {
-            tmp = head.next;
-            head.next = prev;
-            prev = head;
+            tmp = head.next; //保存 Node2 之后的链表
+            head.next = prev; // 将 Node1 指向前节点。在第一步中是指向一个空节点
+            prev = head; // 将prev/head 指针向后各自移动一步
             head = tmp;
         }
         return prev;
-
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
