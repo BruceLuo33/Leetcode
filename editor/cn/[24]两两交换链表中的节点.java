@@ -24,7 +24,7 @@
  4.16 第一遍，4.22 第二遍，5.6 第三遍，7.2 第四遍
  - 思路：
  1. 如果是空节点 or 单节点，直接返回 head;
- 2. 设置 sentinel 节点指向初始的 head，方便最终结果返回;
+ 2. 设置 sentinel 节点指向初始的 head，方便最终结果返回，这也是很多链表题的技巧;
  3. 设置 nextMove 节点，保证 nextMove.next 一直指向 head;
  4. 设置 tmp 保存反转节点之后的 node，即 head.next.next;
  - 注意：在循环的最后，要记得将 head 也指向tmp，亦即之前的 head.next.next，否则会出现以下情况
