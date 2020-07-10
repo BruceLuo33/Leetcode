@@ -17,7 +17,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 5.29 第一遍
+ 5.29 第一遍，7.10 第二遍
  - 思路：动态规划。和 122 题非常类似，不同的是多了一个冷冻期，即从 T+0 变成了 T+1 交易。解决方法也很简单，用一个变量存下前两天的价格就可以了。
  - Recursive Cases:
  1. dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i]); 出售股票没有 T+1，所以是 i - 1
