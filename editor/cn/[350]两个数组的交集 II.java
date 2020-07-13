@@ -30,7 +30,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 6.6 第二遍
+ 6.6 第二遍，7.13 第二遍
  - 思路：
  1. 判断 nums1 与 nums2 的长度，将较短的放入 HashMap 中，遇到相同的key则将value += 1，在放入的过程中，更新value的方式就是重新put一次，在《算法4》234页有类似的操作。
  2. 然后循环 nums2，判断nums2 中的元素是否在 HashMap 中，若是，则将其放入 ArrayList，然后vale -= 1
