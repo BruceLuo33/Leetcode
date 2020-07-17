@@ -30,9 +30,9 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 5.23 第一遍
- 思路：二分查找。为了方便思考，可以在最开始的地方列出 target 在nums数组两端的情况。
- 复杂度分析：O（logN）
+ 5.23 第一遍，7.17 第二遍
+ 思路：二分查找
+
  */
 class Solution {
     public int searchInsert(int[] nums, int target) {
@@ -50,6 +50,14 @@ class Solution {
             }
         }
         return start;
+
+        // Solution two:
+        // if (nums == null || nums.length == 0) return 0;
+        // for (int i = 0; i < nums.length; i++) {
+        //     if (target > nums[i]) continue;
+        //     else return i;
+        // }
+        // return nums.length;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
