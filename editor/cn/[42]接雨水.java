@@ -14,24 +14,25 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 7.20 第一遍
+ 7.20 第一遍，7.21 第二遍
  - 思路：双指针
  */
 class Solution {
     public int trap(int[] height) {
-        if (height == null || height.length < 0) return 0;
+        if (height == null || height.length == 0) return 0;
         int m = height.length;
+        if (m < 3) return 0;
         int left = 0, right = m - 1;
-        int maxLeft = 0, maxRight = 0;
+        int leftMax = 0, rightMax = 0;
         int ans = 0;
         while (left <= right) {
-            maxLeft = Math.max(maxLeft, height[left]);
-            maxRight = Math.max(maxRight, height[right]);
-            if (maxLeft < maxRight) {
-                ans += maxLeft - height[left];
+            leftMax = Math.max(leftMax, height[left]);
+            rightMax = Math.max(rightMax, height[right]);
+            if (leftMax < rightMax) {
+                ans += leftMax - height[left];
                 left += 1;
             } else {
-                ans += maxRight - height[right];
+                ans += rightMax - height[right];
                 right -= 1;
             }
         }
