@@ -17,15 +17,13 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 7.15 第一遍
- - 思路：动态规划
- 1. 状态与选择：
- 2. base case：
- 3. 状态转移方程：
+ 7.15 第一遍，7.21 第二遍
+ - 思路：动态规划。考虑 BST 的性质：左子树全都小于 root，右子树全都大于 root。
 
  */
 class Solution {
     public int numTrees(int n) {
+        if (n < 1) return n;
         int[] dp = new int[n + 1];
         dp[0] = 1;
         dp[1] = 1;
