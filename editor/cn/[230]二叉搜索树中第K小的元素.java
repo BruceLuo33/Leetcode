@@ -41,9 +41,9 @@
  * }
  */
 /**
- 5.16 第一遍
+ 5.16 第一遍，7.22 第二遍
  思路：中序遍历。二叉搜索树中序遍历输出的就是一个有序的数列。在输出到第 k 个值得时候停止递归就可以了。
- 复杂度分析：O（N）
+
  */
 class Solution {
     int count = 0;
@@ -54,7 +54,6 @@ class Solution {
         count += 1;
         if (count == k) {
             ans = root.val;
-            return ans;
         }
         kthSmallest(root.right, k);
         return ans;
