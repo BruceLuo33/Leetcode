@@ -30,7 +30,7 @@ class Solution {
             if (numbers[i + 1] < numbers[i]) return numbers[i + 1];
         }
         return numbers[0];
-        
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
