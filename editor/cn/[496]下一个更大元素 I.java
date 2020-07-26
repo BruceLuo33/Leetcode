@@ -36,7 +36,7 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
- 7.25 第一遍
+ 7.25 第一遍，7.26 第二遍
  - 思路：单调栈
  */
 class Solution {
@@ -46,7 +46,7 @@ class Solution {
         Deque<Integer> stack = new ArrayDeque<>();
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int num : nums2) {
-            while (stack.size() > 0 && stack.peekLast() < num) {
+            while (stack.size() > 0 && stack.peekLast() <= num) {
                 map.put(stack.pollLast(), num);
             }
             stack.offerLast(num);
