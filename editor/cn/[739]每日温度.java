@@ -11,7 +11,7 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
  7.26 第一遍
- - 思路：单调栈。
+ - 思路：单调栈。注意这里要以下标为参数，而不仅仅是值。
  */
 class Solution {
     public int[] dailyTemperatures(int[] T) {
