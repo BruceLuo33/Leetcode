@@ -27,17 +27,21 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+/**
+4.24 第一遍，7.28 第二遍
+思路：递归。从 root 出发，最大的深度等于 1+ 左/右 的node 最大深度。
+复杂度分析：O（N），空间复杂度：O（1）
+*/
 class Solution {
     public int maxDepth(TreeNode root) {
-        // 4.24 第一遍
-        // 思路：递归。从 root 出发，最大的深度等于 1+ 左/右 的node 最大深度。
-        // 复杂度分析：O（N），空间复杂度：O（1）
+
 
         // Basic condition
-        if (root == null) {
-            return 0;
+        public int maxDepth(TreeNode root) {
+            if (root == null) return 0;
+            return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
         }
-        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
