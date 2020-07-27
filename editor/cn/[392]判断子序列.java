@@ -27,25 +27,25 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+/**
+ - xx 第一遍；7.27 第二遍
+ - 思路：双指针。
+ 1. 两个指针分别指向string的首位，若相等，则分别将 i，j 指针往后移动一位
+ 2. 如果不相等，则保持i不动，将j往后移动。最后如果 i 走到了str s 的最后一位，说明 s 中的每一个字符都能在 t 中找到对应。即 s 为 t 的子串。
+ */
 class Solution {
     public boolean isSubsequence(String s, String t) {
-        // 思路：双指针。两个指针分别指向string的首位，若相等，则分别将 i，j 指针往后移动一位
-        // 如果不相等，则保持i不动，将j往后移动。最后如果 i 走到了str s 的最后一位，
-        // 说明 s 中的每一个字符都能在 t 中找到对应。即 s 为 t 的子串。
-
-        int i = 0, j = 0;
-        int lenS = s.length(), lenT = t.length();
-        char[] arrayS = s.toCharArray();
-        char[] arrayT = t.toCharArray();
-        while (i < lenS && j < lenT) {
-            if (arrayS[i] == arrayT[j]) {
+        int m = s.length(), n = t.length();
+        int i= 0, j = 0;
+        while (i < m && j < n) {
+            if (s.charAt(i) == t.charAt(j)) {
                 i += 1;
                 j += 1;
             } else {
                 j += 1;
             }
         }
-        return i == lenS;
+        return i == m;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
