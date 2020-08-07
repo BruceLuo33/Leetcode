@@ -46,22 +46,17 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+/**
+ 4.27 第一遍，5.4 第二遍，8.7 第三遍
+ 思路：递归。
+ 复杂度：O（N），空间复杂度：O（1）
+ */
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        // 4.27 第一遍，5.4 第二遍
-        // 思路：递归。
-        // 复杂度：O（N），空间复杂度：O（1）
         if (p == null && q == null) return true;
         if (p == null || q == null) return false;
         if (p.val != q.val) return false;
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
-
-
-
-        // if (p == null && q == null) return true;
-        // if (p == null || q == null) return false;
-        // if (p.val != q.val) return false;
-        // return isSameTree(p.right, q.right) && isSameTree(p.left, q.left);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
