@@ -40,11 +40,13 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+/*
+4.27 第一遍，12.23 第二遍
+思路：递归。和100题比较相似，都是递归的应用。要注意的是，最终的return项应该是 left.right 、 right.left，
+因为题目要求的是对称，所以就是往两边走要想等。
+复杂度分析：O（N），空间复杂度：O(K)，k为树的高度。
+ */
 class Solution {
-    // 4.27 第一遍
-    // 思路：递归。和100题比较相似，都是递归的应用。要注意的是，最终的return项应该是 left.right 、 right.left，
-    // 因为题目要求的是对称，所以就是往两边走要想等。
-    // 复杂度分析：O（N），空间复杂度：O(K)，k为树的高度。
 
     public boolean isSymmetric(TreeNode root) {
         if (root == null) return true;
