@@ -19,54 +19,37 @@
  *     ListNode(int x) { val = x; }
  * }
  */
+/*
+4.20 第一遍，5.7 第二遍，2021.1.3 第三遍
+思路一：先找到第一个大于等于 x 的node，然后将 tail节点指向它，
+然后不停的往后循环，遇到val 小于 x 的node，就将其移动到 tail 之前。
+复杂度： O（N），空间复杂度：O（1）
+思路二：双链表拼接
+两个链表，head 中小于 x 的放在一个，大于的放在另外一个，最后拼接起来。
+*/
 class Solution {
     public ListNode partition(ListNode head, int x) {
-
-        // 4.20 第一遍，5.7 第二遍
-        // 思路：先找到第一个大于等于 x 的node，然后将 tail节点指向它
-        // 然后不停的往后循环，遇到val 小于 x 的node，就将其移动到 tail 之前
-        // 注意：一定要将 move 的初始位置设置在 sentinel。否则就会跳过对第一个元素的判断，从而造成错误。
-        // 复杂度： O（N），空间复杂度：O（1）
-
-        if (head == null || head.next == null) return head;
-        ListNode sentinel = new ListNode(0);
-        sentinel.next = head;
-        ListNode subStart = head;
-        ListNode move = sentinel;
-        while (move != null && move.next != null) {
-            if (move.next.val >= x) {
-                subStart = move;
-                move = move.next;
-                break;
+        // Solution two
+        ListNode dummyOne = new ListNode(-1);
+        ListNode dummyTwo = new ListNode(-1);
+        ListNode smallList = dummyOne;
+        ListNode largeList = dummyTwo;
+        while (head != null) {
+            if (head.val < x) {
+                smallList.next = head;
+                smallList = smallList.next;
             } else {
-                move = move.next;
+                largeList.next = head;
+                largeList = largeList.next;
             }
+            head = head.next;
         }
-
-        while (move != null && move.next != null) {
-            if (move.next.val < x) {
-                ListNode tmp = move.next;
-                move.next = move.next.next;
-                tmp.next = subStart.next;
-                subStart.next = tmp;
-                subStart = subStart.next;
-
-            } else {
-                move = move.next;
-            }
-        }
-        return sentinel.next;
+        largeList.next = null;
+        smallList.next = dummyTwo.next;
+        return dummyOne.next;
 
 
-        
-
-
-
-
-
-
-
-
+        // Solution One:
 
         ListNode sentinel = new ListNode(0);
         sentinel.next = head;
@@ -108,9 +91,6 @@ class Solution {
             }
         }
         return sentinel.next;
-
-
-
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
