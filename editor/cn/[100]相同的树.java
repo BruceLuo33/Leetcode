@@ -47,15 +47,26 @@
  * }
  */
 /**
- 4.27 第一遍，5.4 第二遍，8.7 第三遍
- 思路：递归。
- 复杂度：O（N），空间复杂度：O（1）
+4.27 第一遍，5.4 第二遍，8.7 第三遍，12.1 第四遍
+思路一：递归。
+- 要判断两个树是否相等，需要从两个角度：结构和值；
+  - 结构：如果 p 和 q 都是 null，那么说明这两个树 or 当前子树结构相等；而如果只有一个为 null，代表某一棵树走到头的时候，另一个还没有，因此结构不相等；
+  - 值：这个很简单，直接判断 val 是否相等；
+- 判断完当前根节点之后，再去递归的判断左子树和右子树
+思路二：DFS，用栈实现。
+复杂度：O（N），空间复杂度：O（1）
  */
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        if (p == null && q == null) return true;
-        if (p == null || q == null) return false;
-        if (p.val != q.val) return false;
+        if (p == null && q == null) {
+            return true;
+        }
+        if (p == null || q == null) {
+            return false;
+        }
+        if (p.val != q.val) {
+            return false;
+        }
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 }

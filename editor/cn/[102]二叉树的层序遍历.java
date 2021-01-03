@@ -33,8 +33,9 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
 /**
- 4.28 第一遍，4.29 第二遍，5.4 第三遍，5.11 第四遍，6.2 第五遍
+ 4.28 第一遍，4.29 第二遍，5.4 第三遍，5.11 第四遍，6.2 第五遍，12.23 第六遍
  思路：使用 BFS 对树进行层间遍历。每次都用一个队列来接受root，然后将其放入答案链表即可。
  注意：在判定当前子节点等级与 ans size 的关系的时候，要写 >= 而非 >，因为在一开始的时候，二者都是 0，如果不加 =，整个
  循环就无法开始。
@@ -44,56 +45,66 @@
  */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
+        // 12.23 codes
+        List<List<Integer>> ans = new ArrayList<>();
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        if (root == null) return ans;
+        nodeQueue.offer(root);
+        while (!nodeQueue.isEmpty()) {
+
+
+        }
+
 
         //6.2 codes
-        List<List<Integer>> ans = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-        if (root == null) return ans;
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            List<Integer> tmp = new ArrayList<>();
-            int size = queue.size();
-            while (size > 0) {
-                size -= 1;
-                TreeNode curNode = queue.poll();
-                tmp.add(curNode.val);
-                if (curNode.left != null) {
-                    queue.offer(curNode.left);
-                }
-                if (curNode.right != null) {
-                    queue.offer(curNode.right);
-                }
-            }
-            ans.add(tmp);
-        }
-        return ans;
+//        List<List<Integer>> ans = new ArrayList<>();
+//        Queue<TreeNode> queue = new LinkedList<>();
+//        if (root == null) return ans;
+//        queue.offer(root);
+//        while (!queue.isEmpty()) {
+//            List<Integer> tmp = new ArrayList<>();
+//            int size = queue.size();
+//            while (size > 0) {
+//                size -= 1;
+//                TreeNode curNode = queue.poll();
+//                tmp.add(curNode.val);
+//                if (curNode.left != null) {
+//                    queue.offer(curNode.left);
+//                }
+//                if (curNode.right != null) {
+//                    queue.offer(curNode.right);
+//                }
+//            }
+//            ans.add(tmp);
+//        }
+//        return ans;
 
 
 
         // 5.11 codes
-        List<List<Integer>> ans = new ArrayList<>();
-        Queue<TreeNode> node = new LinkedList<>();
-        Queue<Integer> nodeLevel = new LinkedList<>();
-        node.offer(root);
-        int level = 0;
-        nodeLevel.offer(level);
-
-        while (!node.isEmpty()) {
-            TreeNode curNode = node.poll();
-            Integer curLevel = nodeLevel.poll();
-            if (curNode != null) {
-                if (curLevel >= ans.size()) {
-                    ans.add(new ArrayList<>());
-                }
-                ans.get(curLevel).add(curNode.val);
-                node.offer(curNode.left);
-                node.offer(curNode.right);
-                level = curLevel + 1;
-                nodeLevel.offer(level);
-                nodeLevel.offer(level);
-            }
-        }
-        return ans;
+//        List<List<Integer>> ans = new ArrayList<>();
+//        Queue<TreeNode> node = new LinkedList<>();
+//        Queue<Integer> nodeLevel = new LinkedList<>();
+//        node.offer(root);
+//        int level = 0;
+//        nodeLevel.offer(level);
+//
+//        while (!node.isEmpty()) {
+//            TreeNode curNode = node.poll();
+//            Integer curLevel = nodeLevel.poll();
+//            if (curNode != null) {
+//                if (curLevel >= ans.size()) {
+//                    ans.add(new ArrayList<>());
+//                }
+//                ans.get(curLevel).add(curNode.val);
+//                node.offer(curNode.left);
+//                node.offer(curNode.right);
+//                level = curLevel + 1;
+//                nodeLevel.offer(level);
+//                nodeLevel.offer(level);
+//            }
+//        }
+//        return ans;
 
 
         // 5.4 codes
